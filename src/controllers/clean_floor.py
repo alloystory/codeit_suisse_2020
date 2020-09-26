@@ -4,6 +4,7 @@ def all_clean(arr):
     return all(map(lambda x: x == 0, arr))
 
 def calculate(arr):
+    print("Data:", arr)
     i = 0
     num_moves = 0
     while i < (len(arr) - 1):
