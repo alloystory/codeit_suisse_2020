@@ -34,4 +34,6 @@ def solve(data):
 
     print("Data:", (n, k, E))
 
-    return jsonify(solver(n, k, E))
+    return jsonify({
+        "result": solver(n, k, E)
+    })
