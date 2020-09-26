@@ -1,6 +1,6 @@
 from flask import Flask, request
 from src import logger
-from src.controllers import salad_spree, contact_tracing, inventory_management
+from src.controllers import salad_spree, contact_tracing, inventory_management, revisit_geometry
 
 app = Flask(__name__)
 for handler in logger.get_handlers(log_directory = "./log/"):
@@ -23,7 +23,9 @@ def contact_trace_route():
 @app.route('/inventory-management', methods = ['POST'])
 def inventory_management_route():
     data = request.get_json()
-    result = inventory_management.solve(data)
-    print("Data: {}".format(data))
-    print("Result: {}".format(result.get_json()))
-    return result
+    return inventory_management.solve(data)
+
+@app.route('/revisitgeometry', methods = ['POST'])
+def revisit_geometry_route():
+    data = request.get_json()
+    return revisit_geometry.solve(data)
