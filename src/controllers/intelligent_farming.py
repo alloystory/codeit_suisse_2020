@@ -32,17 +32,29 @@ def score(genome):
 
 def permutate(count):
     groups = []
-    a, c, g, t = count
-    while c >= 2:
-        groups.append("CC")
-        c -= 2
-    
-    while a >= 1 and c >= 1 and g >= 1 and t >= 1:
-        groups.append("ACGT")
-        a -= 1
-        c -= 1
-        g -= 1
-        t -= 1
+    a, c, g, t = count    
+    if c == min((a,c,g,t)):
+        while a >= 1 and c >= 1 and g >= 1 and t >= 1:
+            groups.append("ACGT")
+            a -= 1
+            c -= 1
+            g -= 1
+            t -= 1
+
+        while c >= 2:
+            groups.append("CC")
+            c -= 2
+    else:
+        while c >= 2:
+            groups.append("CC")
+            c -= 2
+
+        while a >= 1 and c >= 1 and g >= 1 and t >= 1:
+            groups.append("ACGT")
+            a -= 1
+            c -= 1
+            g -= 1
+            t -= 1
 
     while a > 0 and c > 0:
         groups.append("AC")
@@ -105,7 +117,7 @@ def solve(data):
         #     if dri_score > best_score:
         #         best_score = dri_score
         #         best_perm = perm
-
+        print(score(permutate(count(gene))))
         result["list"].append({
             "id": task["id"],
             "geneSequence": permutate(count(gene))
