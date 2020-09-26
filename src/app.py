@@ -24,6 +24,6 @@ def contact_trace_route():
 def inventory_management_route():
     data = request.get_json()
     result = inventory_management.solve(data)
-    app.logger.info("Data: {}".format(data))
-    app.logger.info("Result: {}".format(result.get_json()))
+    print("Data: {}".format(data))
+    print("Result: {}".format(result.get_json()))
     return result
