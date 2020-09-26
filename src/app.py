@@ -1,6 +1,8 @@
 from flask import Flask, request
 from src import logger
-from src.controllers import salad_spree, contact_tracing, inventory_management, revisit_geometry, cluster, intelligent_farming
+from src.controllers import salad_spree, contact_tracing, \
+    inventory_management, revisit_geometry, cluster, intelligent_farming, \
+    social_distancing
 
 app = Flask(__name__)
 for handler in logger.get_handlers(log_directory = "./log/"):
@@ -39,3 +41,8 @@ def cluster_route():
 def intelligent_farming_route():
     data = request.get_json()
     return intelligent_farming.solve(data)
+
+@app.route('/social_distancing', methods = ['POST'])
+def social_distancing_route():
+    data = request.get_json()
+    return social_distancing.solve(data)
