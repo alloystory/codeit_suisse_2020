@@ -1,5 +1,6 @@
 from flask import jsonify
 
+memoize = dict()
 def solver(n, k, E):
     if k == 0:
         return 0
@@ -17,7 +18,11 @@ def solver(n, k, E):
 
         prob_possible_ordering = 0
         for order in possible_orderings:
-            prob = solver(n - 1, k - 1, order)
+            if order in memoize:
+                prob = memoize[order]
+            else:
+                prob = solver(n - 1, k - 1, order)
+                memoize[order] = prob
             prob_possible_ordering += (prob / len(possible_orderings))
 
         return probability + prob_possible_ordering
@@ -26,5 +31,7 @@ def solve(data):
     n = data["number_of_elements"]
     k = data["number_of_operations"]
     E = data["elements"]
+
+    print("Data:", (n, k, E))
 
     return jsonify(solver(n, k, E))
