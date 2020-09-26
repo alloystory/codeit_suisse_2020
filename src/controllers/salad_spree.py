@@ -6,7 +6,7 @@ def solve(data):
 
     min_cost = sys.maxsize
     for street in S:
-        for i in range(len(street) - n):
+        for i in range(len(street) - n + 1):
             window_cost = 0
             is_valid_window = True
             for j in range(n):
