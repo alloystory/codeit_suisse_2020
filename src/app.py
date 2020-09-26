@@ -23,4 +23,7 @@ def contact_trace_route():
 @app.route('/inventory-management', methods = ['POST'])
 def inventory_management_route():
     data = request.get_json()
-    return inventory_management.solve(data)
+    result = inventory_management.solve(data)
+    app.logger.info("Data:", data)
+    app.logger.info("Result:", result)
+    return result
