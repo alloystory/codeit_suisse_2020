@@ -3,7 +3,8 @@ import json
 
 def solve(data):
     data = json.loads(data)
-    weights = (0, 50, 50)
+    weights = (50, 30, 0)
+    print(data)
     counts = [count for _, count in data.items()]
 
     guess = 0
