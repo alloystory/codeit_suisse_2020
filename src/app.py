@@ -49,5 +49,5 @@ def social_distancing_route():
 
 @app.route('/fruitbasket', methods = ['POST'])
 def fruit_basket_route():
-    data = request.get_json()
+    data = request.get_data()
     return fruit_basket.solve(data)

@@ -1,6 +1,8 @@
 from flask import jsonify
+import json
 
 def solve(data):
+    data = json.loads(data)
     weights = (50, 50, 50)
     counts = [count for _, count in data.items()]
 
