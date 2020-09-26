@@ -10,4 +10,8 @@ else
     exit
 fi
 
-flask run -h 127.0.0.1 -p 3000
+if [[ ! $PORT ]]; then
+    export PORT=3000
+fi
+
+flask run -p $PORT
