@@ -3,7 +3,7 @@ import json
 
 def solve(data):
     data = json.loads(data)
-    weights = (50, 30, 0)
+    weights = (50, 40, 0)
     print(data)
     counts = [count for _, count in data.items()]
 
