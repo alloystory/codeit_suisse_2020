@@ -14,6 +14,10 @@ def solver(n, k, E):
                 possible_orderings.add(E[:x] + E[(x + 1):])
             elif E[n - x - 1] == "Y":
                 possible_orderings.add(E[:(n - x - 1)] + E[(n - x):])
+            else:
+                possible_orderings.add(E[:x] + E[(x + 1):])
+                possible_orderings.add(E[:(n - x - 1)] + E[(n - x):])
+
         probability = num_yang / n
 
         prob_possible_ordering = 0
