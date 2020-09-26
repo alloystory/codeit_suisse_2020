@@ -1,6 +1,6 @@
 from flask import Flask, request
 from src import logger
-from src.controllers import salad_spree, contact_tracing, inventory_management, revisit_geometry, cluster
+from src.controllers import salad_spree, contact_tracing, inventory_management, revisit_geometry, cluster, intelligent_farming
 
 app = Flask(__name__)
 for handler in logger.get_handlers(log_directory = "./log/"):
@@ -34,3 +34,8 @@ def revisit_geometry_route():
 def cluster_route():
     data = request.get_json()
     return cluster.solve(data)
+
+@app.route('/intelligent-farming', methods = ['POST'])
+def intelligent_farming_route():
+    data = request.get_json()
+    return intelligent_farming.solve(data)
