@@ -26,8 +26,12 @@ def edit_ops(str1, str2):
             deletion = dp_table[i - 1][j][0] + 1
             deletion_ops = dp_table[i - 1][j][1] + "-{}".format(str1[i - 1])
 
-            substitution = dp_table[i - 1][j - 1][0] + int(str1[i - 1].lower() != str2[j - 1].lower())
-            substitution_ops = dp_table[i - 1][j - 1][1] + "{}".format(str2[j - 1])
+            if str1[i - 1].lower() != str2[j - 1].lower():
+                substitution = dp_table[i - 1][j - 1][0] + 1
+                substitution_ops = dp_table[i - 1][j - 1][1] + "{}".format(str2[j - 1])
+            else:
+                substitution = dp_table[i - 1][j - 1][0]
+                substitution_ops = dp_table[i - 1][j - 1][1] + "{}".format(str1[i - 1])
 
             min_cost = insertion
             min_ops = insertion_ops
