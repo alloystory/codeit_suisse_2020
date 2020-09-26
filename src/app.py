@@ -2,7 +2,7 @@ from flask import Flask, request
 from src import logger
 from src.controllers import salad_spree, contact_tracing, \
     inventory_management, revisit_geometry, cluster, intelligent_farming, \
-    social_distancing
+    social_distancing, fruit_basket
 
 app = Flask(__name__)
 for handler in logger.get_handlers(log_directory = "./log/"):
@@ -46,3 +46,8 @@ def intelligent_farming_route():
 def social_distancing_route():
     data = request.get_json()
     return social_distancing.solve(data)
+
+@app.route('/fruitbasket', methods = ['POST'])
+def fruit_basket_route():
+    data = request.get_json()
+    return fruit_basket.solve(data)
