@@ -48,8 +48,8 @@ def solve(data):
     for entry in data:
         query = entry["searchItemName"]
         items = entry["items"]
-        scores = [edit_ops(query, item) for item in items]
-        scores = sorted(scores, key = lambda x: (x[0], x[1]))
+        scores = [edit_ops(query, item) + [item] for item in items]
+        scores = sorted(scores, key = lambda x: (x[0], x[2]))
 
         results.append({
             "searchItemName": query,
