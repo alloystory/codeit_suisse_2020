@@ -117,7 +117,6 @@ def solve(data):
         #     if dri_score > best_score:
         #         best_score = dri_score
         #         best_perm = perm
-        print(score(permutate(count(gene))))
         result["list"].append({
             "id": task["id"],
             "geneSequence": permutate(count(gene))
