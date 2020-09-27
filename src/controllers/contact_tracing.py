@@ -1,4 +1,5 @@
 import sys
+from flask import jsonify
 
 def compare(genome1, genome2):
     num_diff = 0
@@ -17,49 +18,10 @@ def compare(genome1, genome2):
         return (num_diff, True)
     return (num_diff, False)
 
-def dfs(adj_list, node, visited):
-    copied_visited = set([x for x in visited])
-    copied_visited.add(node)
-    paths = []
-
-    if len(adj_list[node]) == 0:
-        return paths
-    else:
-        for neighbour in adj_list[node]:
-            if neighbour in copied_visited:
-                continue
-            path = [node] + dfs(adj_list, neighbour, copied_visited)
-            paths.append(order)
-
-    return order
-
-def dfs(adj_list, node):
-    paths = []
-    def inner(adj_list, node, visit_order):
-        copied_visit_order = [x for x in visit_order]
-        copied_visit_order.append(node)
-        
-        if len(adj_list[node]) == 0:
-            paths.append(copied_visit_order)
-        else:
-            for neighbour in adj_list[node]:
-                if neighbour in copied_visit_order:
-                    continue
-                inner(adj_list, neighbour[0], copied_visit_order)
-
-    inner(adj_list, node, [])
-    return paths    
-
 def solve(data):
     infected = data["infected"]
     origin = data["origin"]
     clusters = data["cluster"]
-
-    # node_names = dict()
-    # node_names[infected["name"]] = 0
-    # node_names[origin["name"]] = 1
-    # for i, cluster in enumerate(clusters):
-    #     node_names[cluster["name"]] = i + 2
 
     adj_list = dict()
     adj_list[infected["name"]] = []
@@ -89,6 +51,38 @@ def solve(data):
                 adj_list[clusters[i]["name"]].append((clusters[j]["name"], dist, is_non_silent))
                 adj_list[clusters[j]["name"]].append((clusters[i]["name"], dist, is_non_silent))
 
-    print(adj_list)
-    print(dfs(adj_list, infected["name"]))
-    return {"hello":"hello"}
+    def dfs(node):
+        visited = set()
+        all_paths = []
+        def inner(curr_node, path, max_dist):
+            visited.add(curr_node)
+
+            if not adj_list[curr_node]:
+                path.append(curr_node)
+                all_paths.append((max_dist, path))
+            else:
+                for neighbor in adj_list[curr_node]:
+                    copied_path = [x for x in path]
+                    is_non_silent = neighbor[2]
+                    if is_non_silent:
+                        copied_path.append(curr_node + "*")
+                    else:
+                        copied_path.append(curr_node)
+
+                    if neighbor in visited:
+                        continue
+                    inner(neighbor[0], copied_path, max(max_dist, neighbor[1]))
+        inner(node, [], 0)
+        return all_paths
+
+    paths = dfs(infected["name"])
+
+    min_path_weight = sys.maxsize
+    min_paths = []
+    for path in paths:
+        if path[0] < min_path_weight:
+            min_paths = []
+        if path[0] <= min_path_weight:
+            min_path_weight = path[0]
+            min_paths.append(" -> ".join(path[1]))
+    return jsonify(min_paths)
