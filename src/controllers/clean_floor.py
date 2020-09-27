@@ -5,36 +5,39 @@ def all_clean(arr):
 
 def calculate(arr):
     print("Data:", arr)
+    floor = arr[::-1]
     num_moves = 0
-    if arr[0] > 0:
-        num_moves += arr[0] * 2
-        if arr[0] == arr[1]:
-            arr[1] = 0
+    while floor:
+        if len(floor)==1:
+            if floor[-1]%2 == 0:
+                num_moves+= (2* floor[-1])
+            else:
+                num_moves+= (2* floor[-1]) +1
+            
+            break
+        num_moves+= floor[-1]*2+1
+        if floor[-1] >= floor[-2]:
+            if (floor[-1]-floor[-2])%2==0:
+                if len(floor) != 2:
+                    floor[-2] = 1
+                    floor.pop()
+                else:
+                    floor.pop()
+                    floor.pop()
+                    num_moves -= 1
+                    break
+            else:
+                floor.pop()
+                floor.pop()
+                try:
+                    floor[-1] -= 1
+                    num_moves+=1
+                except:
+                    break
         else:
-            arr[1] -= abs(arr[1] - arr[0])
-        if arr[1] < 0:
-            arr[1] = abs(arr[1]) % 2 == 0
-
-    for i in range(1, len(arr)-1):
-        num_moves += 1
-        if arr[i] == 0:
-            arr[i] = 1
-        else:
-            arr[i] -= 1
-        value = arr[i]
-        num_moves += value * 2
-        if arr[i] == arr[i+1]:
-            arr[i+1] = 0
-        else:
-            arr[i+1] -= abs(arr[i+1] - arr[i])
-        if arr[i+1] < 0:
-            arr[i+1] = abs(arr[i+1]) % 2 == 0
-
-    if arr[-1] > 0:
-        if arr[-1] % 2 == 0:
-            num_moves += arr[-1] * 2
-        else:
-            num_moves += arr[-1] * 2 - 1
+            floor[-2]-=floor[-1]
+            floor[-2]-=1
+            floor.pop()
     return num_moves
         
 def solve(data):
