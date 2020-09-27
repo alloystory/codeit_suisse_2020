@@ -4,6 +4,7 @@ def all_clean(arr):
     return all(map(lambda x: x == 0, arr))
 
 def calculate(arr):
+    print("Data:", arr)
     num_moves = 0
     for i in range(1, len(arr)):
         num_moves += 1
@@ -13,15 +14,21 @@ def calculate(arr):
             arr[i] -= 1
 
         if arr[i - 1] != 0:
-            num_moves += arr[i - 1] * 2
-            arr[i - 1] = 0
+            if all_clean(arr[i:]):
+                print(arr)
+                if arr[i - 1] % 2 == 0:
+                    num_moves += arr[i - 1] * 2
+                else:
+                    num_moves += arr[i - 1] * 2 - 1
+            else:
+                num_moves += arr[i - 1] * 2
             arr[i] -= arr[i - 1]
+            arr[i - 1] = 0
             if arr[i] % 2 == 0:
                 arr[i] = 0
             else:
                 arr[i] = 1
-            if all_clean(arr):
-                num_moves -= 1
+            
         
         if all_clean(arr):
             break
