@@ -5,35 +5,39 @@ def all_clean(arr):
 
 def calculate(arr):
     print("Data:", arr)
-    num_moves = 0
-    for i in range(1, len(arr)):
-        num_moves += 1
+    ans = 0
+    n = len(arr)
+    if arr[0] > 0:
+        value = arr[0]
+        ans += value * 2
+        if arr[0] == arr[1]:
+            arr[1] = 0
+        else:
+            arr[1] -= abs(arr[1] - arr[0])
+        if arr[1] < 0:
+            arr[1] = abs(arr[1]) % 2 == 0
+
+    for i in range(1, n-1):
+        ans += 1
         if arr[i] == 0:
             arr[i] = 1
         else:
             arr[i] -= 1
+        value = arr[i]
+        ans += value * 2
+        if arr[i] == arr[i+1]:
+            arr[i+1] = 0
+        else:
+            arr[i+1] -= abs(arr[i+1] - arr[i])
+        if arr[i+1] < 0:
+            arr[i+1] = abs(arr[i+1]) % 2 == 0
 
-        if arr[i - 1] != 0:
-            if all_clean(arr[i:]):
-                print(arr)
-                if arr[i - 1] % 2 == 0:
-                    num_moves += arr[i - 1] * 2
-                else:
-                    num_moves += arr[i - 1] * 2 - 1
-            else:
-                num_moves += arr[i - 1] * 2
-            arr[i] -= arr[i - 1]
-            arr[i - 1] = 0
-            if arr[i] % 2 == 0:
-                arr[i] = 0
-            else:
-                arr[i] = 1
-            
-        
-        if all_clean(arr):
-            break
-
-    return num_moves
+    if arr[-1] > 0:
+        if arr[-1] % 2 == 0:
+            ans += arr[-1] * 2
+        else:
+            ans += arr[-1] * 2 - 1
+    return ans
         
 def solve(data):
     results = {}
