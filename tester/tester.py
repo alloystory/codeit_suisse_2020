@@ -1,9 +1,10 @@
 import json
 import requests
+import sys
 from pathlib import Path
 
 if __name__ == "__main__":
-    url = "http://localhost:3000/salad-spree"
+    url = "http://localhost:3000/inventory_management"
 
     with Path("./data.json").open("r") as f:
         data = json.load(f)

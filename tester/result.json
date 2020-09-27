@@ -1,11 +1,10 @@
 [
     {
-        "result": 24
-    }, 
-    {
-        "result": 0
-    }, 
-    {
-        "result": 5
+        "searchItemName": "Samsung Aircon",
+        "searchResult": [
+            "-Samsung+h Aircon",
+            "Samsung+a Air-con",
+            "S-ams-ung Au-r-con"
+        ]
     }
 ]

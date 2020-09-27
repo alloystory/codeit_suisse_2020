@@ -1,14 +1,10 @@
 [
     {
-        "number_of_salads" : 3,
-        "salad_prices_street_map" : [["12", "12", "3", "X", "3"], ["23", "X", "X", "X", "3"], ["33", "21", "X", "X", "X"], ["9", "12", "3", "X", "X"], ["X", "X", "X", "4", "5"]]
-    }, 
-    {
-        "number_of_salads" : 3,
-        "salad_prices_street_map" : [["X", "X", "2"], ["2", "3", "X"], ["X", "3", "2"]]
-    }, 
-    {
-        "number_of_salads" : 2,
-        "salad_prices_street_map" : [["2", "3", "X", "2"], ["4", "X", "X", "4"], ["3", "2", "X", "X"], ["X", "X", "X", "5"]]
+        "searchItemName": "Samsung Aircon",
+        "items": [
+            "Smsng Auon",
+            "Amsungh Aircon",
+            "Samsunga Airon"
+        ]
     }
 ]
